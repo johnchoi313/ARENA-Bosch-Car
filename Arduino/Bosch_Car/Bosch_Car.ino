@@ -29,6 +29,7 @@ void setup() {
   
   //Enable the serial comunication
   Serial.begin(115200); 
+  Serial.setTimeout(1);
 }
 
 //Helper Function to Print to LCD and Serial
@@ -41,7 +42,7 @@ void printSerialLCD(String label, int value, int x, int y) {
 }
 
 void loop() {
-  //Get Data from INput Pins
+  //Get Data from Input Pins
   int a = digitalRead(HOOD_PR_PIN);
   int b = digitalRead(ENGINE_PR_PIN);
   int c = digitalRead(WHEEL_PR_L_PIN);
@@ -61,5 +62,5 @@ void loop() {
   Serial.println();
 
   //Short delay
-  delay(10);
+  delay(15);
 }
