@@ -1,103 +1,88 @@
 
 #include <Wire.h>
-#include <SharpIR.h>
 #include <LiquidCrystal_I2C.h>
 
-
-
-
-int tim = 500; //the value of delay time
 // initialize the library with the numbers of the interface pins
 LiquidCrystal_I2C lcd(0x27,16,2); // set the LCD address to 0x27 for a 16 chars and 2 line display
 
 int LCD_delay = 500;
 int LCD_timer = 0;
 
-
 int num = 0;
 
-//IR Sensors
-#define IR_PIN_L A0
-#define IR_PIN_R A1
-
-//SharpIR IR_SENSOR_L( SharpIR::GP2Y0A41SK0F, A0 );
-SharpIR IR_SENSOR_R( SharpIR::GP2Y0A41SK0F, A1 );
-
-
-//Hall Effect Sensors
-#define HE_PIN_L A2
-#define HE_PIN_R A3
-
-//Photo Resistors
-#define PR_PIN_L 11
-#define PR_PIN_R 12
-
-
-
+//Photo Resistors (PR)
+#define HOOD_PR_PIN A1
+#define ENGINE_PR_PIN A0
+#define WHEEL_PR_L_PIN A3
+#define WHEEL_PR_R_PIN A2
+//Limit Switches (LS)
+#define HEADLIGHT_LS_L_PIN 12
+#define HEADLIGHT_LS_R_PIN 11
 
 
 void setup()
 {
-  //lcd.init();
-  //lcd.backlight();
+  lcd.init();
+  lcd.backlight();
 
-  //pinMode(PR_PIN_L, INPUT);
-  //pinMode(PR_PIN_R, INPUT);
+  pinMode(HOOD_PR_PIN, INPUT);
+  pinMode(ENGINE_PR_PIN, INPUT);
 
-  //pinMode(HE_PIN_L, INPUT);
-  //pinMode(HE_PIN_R, INPUT);
+  pinMode(WHEEL_PR_L_PIN, INPUT);
+  pinMode(WHEEL_PR_R_PIN, INPUT);
 
-  //pinMode(IR_PIN_L, INPUT);
-  //pinMode(IR_PIN_R, INPUT);
+  pinMode(HEADLIGHT_LS_L_PIN, INPUT_PULLUP);
+  pinMode(HEADLIGHT_LS_R_PIN, INPUT_PULLUP);
 
   Serial.begin( 9600 ); //Enable the serial comunication
-
-
 }
 
 
+void printLCD() {
+  
+}
 
 void loop()
 {
-  
-  //int x = analogRead(IR_PIN_L);
-  //int y = analogRead(IR_PIN_R);
 
-  //int x = IR_SENSOR_L.getDistance(); //Calculate the distance in centimeters and store the value in a variable
-  int y = IR_SENSOR_R.getDistance(); //Calculate the distance in centimeters and store the value in a variable
+  int a = digitalRead(HOOD_PR_PIN);
+  int b = digitalRead(ENGINE_PR_PIN);
 
-  Serial.println( y ); //Print the value to the serial monitor
+  int c = digitalRead(WHEEL_PR_L_PIN);
+  int d = digitalRead(WHEEL_PR_R_PIN);
 
-  /*
-
-  int a = digitalRead(PR_PIN_L);
-  int b = digitalRead(PR_PIN_R);
-
-  int c = digitalRead(HE_PIN_L);
-  int d = digitalRead(HE_PIN_R);
-
-  
+  int e = digitalRead(HEADLIGHT_LS_L_PIN);
+  int f = digitalRead(HEADLIGHT_LS_R_PIN);
 
   lcd.setCursor(0, 0);
-  lcd.print(x);
-  lcd.setCursor(0, 1);
-  lcd.print(y);
-
-  lcd.setCursor(5, 0);
+  lcd.print("HO=");
+  lcd.setCursor(0+3, 0);
   lcd.print(a);
-  lcd.setCursor(5, 1);
+  
+  lcd.setCursor(0, 1);
+  lcd.print("EN=");
+  lcd.setCursor(0+3, 1);
   lcd.print(b);
 
-  lcd.setCursor(10, 0);
+  lcd.setCursor(6, 0);
+  lcd.print("WL=");
+  lcd.setCursor(6+3, 0);
   lcd.print(c);
-  lcd.setCursor(10, 1);
+
+  lcd.setCursor(6, 1);
+  lcd.print("WR=");
+  lcd.setCursor(6+3, 1);
   lcd.print(d);
-  */
 
+  lcd.setCursor(12, 0);
+  lcd.print("HL=");
+  lcd.setCursor(12+3, 0);
+  lcd.print(e);
+ 
+  lcd.setCursor(12, 1);
+  lcd.print("HR=");
+  lcd.setCursor(12+3, 1);
+  lcd.print(f);
+  
   delay(50);
-
 }
-
-
-
-
