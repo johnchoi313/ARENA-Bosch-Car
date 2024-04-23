@@ -8,7 +8,11 @@ import time
 FILESTORE = "https://arenaxr.org/" #main server
 FILEPATH = "store/users/johnchoi/BoschCar_Simplified/" #Path
 HEADER = "BoschCar"
-DISTANCE = 0.25
+
+DISTANCE = 0.2
+SEPARATOR = 0.4
+ANIMATE_DURATION = 1500
+
 VERBOSE = True
 
 #make sure Arduino with correct serial port name is attached!
@@ -102,47 +106,48 @@ class BoschCar:
 
     def AnimateHood(self,isOn):
         if(isOn):
-            self.AnimatePart(self.Hood, Position(0,0,0), Rotation(89,0,0), 2000)
+            self.AnimatePart(self.Hood, Position(0,0.3524,0.1218), Rotation(0,0,0), ANIMATE_DURATION)
         else:
-            self.ResetParts([self.Hood], 2000)
-
+            self.AnimatePart(self.Hood, Position(0,0.3524,0.1218), Rotation(89,0,0), ANIMATE_DURATION)
+    
     def AnimateEngine(self,isOn):
         if(isOn):
-            self.AnimatePart(self.Engine_Block, Position(0,DISTANCE,0), Rotation(0,0,0), 2000)
-            self.AnimatePart(self.Engine_Screws, Position(0,DISTANCE*2,0), Rotation(0,0,0), 2000)
-            self.AnimatePart(self.Engine_Exhaust, Position(0,DISTANCE*3,0), Rotation(0,0,0), 2000)
-            self.AnimatePart(self.Engine_Exhaust_Screw, Position(0,DISTANCE*4,0), Rotation(0,0,0), 2000)
+            self.ResetParts([self.Engine_Block, self.Engine_Screws, self.Engine_Exhaust, self.Engine_Exhaust_Screw], ANIMATE_DURATION)
         else:
-            self.ResetParts([self.Engine_Block, self.Engine_Screws, self.Engine_Exhaust, self.Engine_Exhaust_Screw], 2000)
-
+            self.AnimatePart(self.Engine_Block, Position(0,DISTANCE*(1+SEPARATOR*0),0), Rotation(0,0,0), ANIMATE_DURATION)
+            self.AnimatePart(self.Engine_Screws, Position(0,DISTANCE*(1+SEPARATOR*1),0), Rotation(0,0,0), ANIMATE_DURATION)
+            self.AnimatePart(self.Engine_Exhaust, Position(0,DISTANCE*(1+SEPARATOR*2),0), Rotation(0,0,0), ANIMATE_DURATION)
+            self.AnimatePart(self.Engine_Exhaust_Screw, Position(0,DISTANCE*(1+SEPARATOR*3),0), Rotation(0,0,0), ANIMATE_DURATION)
+    
     def AnimateLeftWheel(self,isOn):
         if(isOn):
-            self.AnimatePart(self.Wheel_L_Brake, Position(DISTANCE,0,0), Rotation(0,0,0), 2000)
-            self.AnimatePart(self.Wheel_L_Tire, Position(DISTANCE*2,0,0), Rotation(0,0,0), 2000)
-            self.AnimatePart(self.Wheel_L_Screws, Position(DISTANCE*3,0,0), Rotation(0,0,0), 2000)
+            self.ResetParts([self.Wheel_L_Brake, self.Wheel_L_Tire, self.Wheel_L_Screws], ANIMATE_DURATION)
         else:
-            self.ResetParts([self.Wheel_L_Brake, self.Wheel_L_Tire, self.Wheel_L_Screws], 2000)
+            self.AnimatePart(self.Wheel_L_Brake, Position(-DISTANCE*(1+SEPARATOR*0),0,0), Rotation(0,0,0), ANIMATE_DURATION)
+            self.AnimatePart(self.Wheel_L_Tire, Position(-DISTANCE*(1+SEPARATOR*1),0,0), Rotation(0,0,0), ANIMATE_DURATION)
+            self.AnimatePart(self.Wheel_L_Screws, Position(-DISTANCE*(1+SEPARATOR*2),0,0), Rotation(0,0,0), ANIMATE_DURATION)
+    
     def AnimateRightWheel(self,isOn):
         if(isOn):
-            self.AnimatePart(self.Wheel_R_Brake, Position(-DISTANCE,0,0), Rotation(0,0,0), 2000)
-            self.AnimatePart(self.Wheel_R_Tire, Position(-DISTANCE*2,0,0), Rotation(0,0,0), 2000)
-            self.AnimatePart(self.Wheel_R_Screws, Position(-DISTANCE*3,0,0), Rotation(0,0,0), 2000)
+            self.ResetParts([self.Wheel_R_Brake, self.Wheel_R_Tire, self.Wheel_R_Screws], ANIMATE_DURATION)
         else:
-            self.ResetParts([self.Wheel_R_Brake, self.Wheel_R_Tire, self.Wheel_R_Screws], 2000)
+            self.AnimatePart(self.Wheel_R_Brake, Position(DISTANCE*(1+SEPARATOR*0),0,0), Rotation(0,0,0), ANIMATE_DURATION)
+            self.AnimatePart(self.Wheel_R_Tire, Position(DISTANCE*(1+SEPARATOR*1),0,0), Rotation(0,0,0), ANIMATE_DURATION)
+            self.AnimatePart(self.Wheel_R_Screws, Position(DISTANCE*(1+SEPARATOR*2),0,0), Rotation(0,0,0), ANIMATE_DURATION)
 
     def AnimateLeftHeadlight(self,isOn):
         if(isOn):
-            self.AnimatePart(self.HeadLight_L, Position(0,0,DISTANCE), Rotation(0,0,0), 2000)
-            self.AnimatePart(self.HeadLight_L_Screw, Position(0,DISTANCE,0), Rotation(0,0,0), 2000)
+            self.ResetParts([self.HeadLight_L, self.HeadLight_L_Screw], ANIMATE_DURATION)
         else:
-            self.ResetParts([self.HeadLight_L, self.HeadLight_L_Screw], 2000)
+            self.AnimatePart(self.HeadLight_L, Position(0,0,-DISTANCE), Rotation(0,0,0), ANIMATE_DURATION)
+            self.AnimatePart(self.HeadLight_L_Screw, Position(0,DISTANCE*0.5,0), Rotation(0,0,0), ANIMATE_DURATION)
     def AnimateRightHeadlight(self,isOn):
         if(isOn):
-            self.AnimatePart(self.HeadLight_R, Position(0,0,DISTANCE), Rotation(0,0,0), 2000)
-            self.AnimatePart(self.HeadLight_R_Screw, Position(0,DISTANCE,0), Rotation(0,0,0), 2000)
+            self.ResetParts([self.HeadLight_R, self.HeadLight_R_Screw], ANIMATE_DURATION)
         else:
-            self.ResetParts([self.HeadLight_R, self.HeadLight_R_Screw], 2000)
-    
+            self.AnimatePart(self.HeadLight_R, Position(0,0,-DISTANCE), Rotation(0,0,0), ANIMATE_DURATION)
+            self.AnimatePart(self.HeadLight_R_Screw, Position(0,DISTANCE*0.5,0), Rotation(0,0,0), ANIMATE_DURATION)
+        
     #-----------STRING PROCESSING FUNCTIONS-----------#
     
     def processValues(self, a, b, c, d, e, f):
@@ -240,7 +245,7 @@ if __name__=="__main__":
     app_scale = scene.args["scale"]
 
     # manual hardcoded setup ARENA scene
-    #scene = Scene(host="arenaxr.org", namespace="johnchoi", scene="BoschCar")
+    #scene = Scene(host="arenaxr.org", namespace="johnchoi", scene="BoschCarArduino")
     #app_position=Position(1.5,0,-1.5),
     #app_rotation=Rotation(0,45,0),
     #app_scale=Scale(1,1,1),
@@ -253,7 +258,7 @@ if __name__=="__main__":
         if(VERBOSE):
             print("Program started.")
 
-    @scene.run_forever(interval_ms=100)
+    @scene.run_forever(interval_ms=10)
     def ExampleDoorUpdate():
     
         value = ""
@@ -280,3 +285,5 @@ if __name__=="__main__":
                 " | WL="  + str(WHEEL_L) + " | WR="  + str(WHEEL_R) + 
                 " | HL="  + str(HEADLIGHT_L) + " | HR="  + str(HEADLIGHT_R))
             '''
+
+    scene.run_tasks()

@@ -11,8 +11,8 @@ LiquidCrystal_I2C lcd(0x27,16,2); // set the LCD address to 0x27 for a 16 chars 
 #define WHEEL_PR_L_PIN A3
 #define WHEEL_PR_R_PIN A2
 //Limit Switches (LS)
-#define HEADLIGHT_LS_L_PIN 12
-#define HEADLIGHT_LS_R_PIN 11
+#define HEADLIGHT_LS_L_PIN 11
+#define HEADLIGHT_LS_R_PIN 12
 
 void setup() {
   //Prepare I2C LCD
