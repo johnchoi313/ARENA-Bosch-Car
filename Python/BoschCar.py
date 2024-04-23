@@ -230,6 +230,7 @@ class BoschCar:
 # How to use this example script in Terminal CLI: (make sure Arduino with correct serial port name is attached!)
 #
 #   py BoschCar.py -mh "arenaxr.org" -n "johnchoi" -s "BoschCarArduino" -p 0 0 0 -r 0 0 0 -c 1 1 1
+#   py BoschCar.py -mh "arenaxr.org" -n "public" -s "arena" -p 0 0.9 -2.9 -r 0 180 0 -c 1 1 1
 #     -mh = host | -n = namespace | -s = scene | -p = position | -r = rotation | -c = scale
 #
 if __name__=="__main__":
@@ -246,8 +247,8 @@ if __name__=="__main__":
 
     # manual hardcoded setup ARENA scene
     #scene = Scene(host="arenaxr.org", namespace="johnchoi", scene="BoschCarArduino")
-    #app_position=Position(1.5,0,-1.5),
-    #app_rotation=Rotation(0,45,0),
+    #app_position=Position(0,0.9,-2.9),
+    #app_rotation=Rotation(0,180,0),
     #app_scale=Scale(1,1,1),
 
     #Call this function to create a boschPendulum class instance
