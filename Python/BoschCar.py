@@ -2,7 +2,7 @@ from ColorPrinter import *
 import serial
 import time
 
-arduino = serial.Serial(port='COM3',  baudrate=115200, timeout=1)
+arduino = serial.Serial(port='COM4',  baudrate=115200, timeout=1)
 
 HOOD = 0
 ENGINE = 0
@@ -13,10 +13,16 @@ WHEEL_R = 0
 HEADLIGHT_L = 0
 HEADLIGHT_R = 0
 
+value = "000000"
+
 while True:
     time.sleep(.01)
-    value = arduino.readline().decode('utf-8').rstrip()
 
+    try:
+        value = arduino.readline().decode('utf-8').rstrip()
+    except:
+        printRedB("Failed to read serial from arduino.")
+    
     if (len(value) >= 6):
 
         a = int(value[0])
@@ -25,7 +31,6 @@ while True:
         d = int(value[3])
         e = int(value[4])
         f = int(value[5])
-
 
         if(HOOD!=a):
             HOOD=a
